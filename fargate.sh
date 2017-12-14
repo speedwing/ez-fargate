@@ -30,7 +30,7 @@ EOF
   exec /bin/bash updateScript.sh
 }
 
-# Download latestversion
+# Download latest version
 echo -n "Downloading latest version..."
 if ! wget --quiet --output-document="$0.tmp" $UPDATE_BASE/$SELF ; then
     echo "Failed: Error while trying to wget new version!"
