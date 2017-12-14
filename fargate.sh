@@ -3,7 +3,7 @@
 set -o errexit
 
 SELF=$(basename $0)
-UPDATE_BASE=http://something
+UPDATE_BASE=https://github.com/speedwing/ez-fargate/blob/master
 
 runSelfUpdate() {
   echo "Performing self-update..."
@@ -42,3 +42,4 @@ EOF
 
 runSelfUpdate
 
+echo "WHOA!"
