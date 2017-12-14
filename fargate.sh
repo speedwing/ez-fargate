@@ -42,7 +42,7 @@ echo "Done."
 CURRENT_MD5=$(md5 -q $SELF)
 LATEST_MD5=$(md5 -q $0.tmp)
 
-if [ ! "$a" == "$b" ]
+if [ ! "$CURRENT_MD5" == "$LATEST_MD5" ]
 then
     runSelfUpdate
 else
