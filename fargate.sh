@@ -6,16 +6,6 @@ SELF=$(basename $0)
 UPDATE_BASE=https://raw.githubusercontent.com/speedwing/ez-fargate/master
 
 runSelfUpdate() {
-  echo "Performing self-update..."
-
-  # Download new version
-  echo -n "Downloading latest version..."
-  if ! wget --quiet --output-document="$0.tmp" $UPDATE_BASE/$SELF ; then
-    echo "Failed: Error while trying to wget new version!"
-    echo "File requested: $UPDATE_BASE/$SELF"
-    exit 1
-  fi
-  echo "Done."
 
   # Copy over modes from old version
   OCTAL_MODE=$(stat -f %Mp%Lp $SELF)
@@ -36,10 +26,24 @@ else
 fi
 EOF
 
-  echo -n "Inserting update process..."
+  echo -n "Updating script and exiting, update version control!"
   exec /bin/bash updateScript.sh
 }
 
-runSelfUpdate
+# Download latestversion
+echo -n "Downloading latest version..."
+if ! wget --quiet --output-document="$0.tmp" $UPDATE_BASE/$SELF ; then
+    echo "Failed: Error while trying to wget new version!"
+    echo "File requested: $UPDATE_BASE/$SELF"
+    exit 1
+fi
+echo "Done."
 
-echo "WHOAA!"
+CURRENT_MD5=$(md5 -q $SELF)
+LATEST_MD5=$(md5 -q $0.tmp)
+
+if [ ! "$a" == "$b" ];   then
+    runSelfUpdate
+fi
+
+echo "Executing Script!"
